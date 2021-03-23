@@ -1,16 +1,7 @@
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    <title>Home Symfony 5</title>
-</head>
-<body>
+{% extends 'base.html.twig' %}
 
-    <h3 class="title is-3">Mon super titre avec Symfony 5</h3>
+{% block title %}{{ "Accueil | Bucket-list" }}{% endblock %}
 
-</body>
-</html>
+{% block body %}
+    <h1 class="title is-3">Accueil Bucket-List !</h1>
+{% endblock %}
