@@ -32,7 +32,7 @@
 <body>
     <header>
         <div class="container">
-            <nav class="navbar" role="navigation" aria-label="main navigation">
+            <nav class="navbar my-5" role="navigation" aria-label="main navigation">
                 <div class="navbar-brand">
                     <a class="navbar-item" href="{{ path('main_home') }}">
                         <img src="{{ asset('icon/logo.png') }}" width="30" height="30">
@@ -48,8 +48,11 @@
 
                 <div id="navbarBasicExample" class="navbar-menu">
                     <div class="navbar-start">
-                        <a class="navbar-item" href="{{ path('main_home') }}">
-                            Accueil
+                        <a class="navbar-item" href="{{ path('main_about_us') }}">
+                            Nous connaitre
+                        </a>
+                        <a class="navbar-item" href="{{ path('wish_list') }}">
+                            Mes souhaits
                         </a>
                     </div>
                 </div>
@@ -61,7 +64,7 @@
             {% block body %}{% endblock %}
         </div>
     </main>
-    <footer class="footer">
+    <footer class="footer mt-5">
         <div class="content has-text-centered">
             &copy; Bucket-List - {{ "now"|date("Y") }}
         </div>

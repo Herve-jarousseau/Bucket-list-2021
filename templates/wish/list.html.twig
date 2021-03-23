@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos souhaits{% endblock %}
+
+{% block body %}
+    <h1 class="title is-5">Votre souhai'ket-Liste !</h1>
+    <div>
+        <p><a href="{{ path('wish_detail', {id: 5}) }}">Exemple : 5</a></p>
+    </div>
+{% endblock %}
