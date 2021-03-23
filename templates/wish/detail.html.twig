@@ -4,5 +4,30 @@
 
 {% block body %}
     <h1 class="title is-5">Votre souhai'ket en détail !</h1>
-    <p>N° : {{ id }}</p>
+
+    <table class="table my-6">
+        <tbody>
+        <tr>
+            <td><span class="icon"><i class="fas fa-user"></i></span></td>
+            <th>Auteur</th>
+            <td>{{ wish.author }}</td>
+        </tr>
+        <tr>
+            <td><span class="icon"><i class="far fa-question-circle"></i></span></td>
+            <th>Titre</th>
+            <td>{{ wish.title }}</td>
+        </tr>
+        <tr>
+            <td><span class="icon"><i class="fas fa-info-circle"></i></span></td>
+            <th>Description</th>
+            <td>{{ wish.description }}</td>
+        </tr>
+        <tr>
+            <td><span class="icon"><i class="far fa-calendar-check"></i></span></td>
+            <th>Publié le</th>
+            <td>{{ wish.dateCreated|date("d/m/y") }}</td>
+        </tr>
+        </tbody>
+    </table>
+
 {% endblock %}
