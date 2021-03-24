@@ -16,7 +16,7 @@ class WishController extends AbstractController
     public function list(WishRepository $wishRepository): Response
     {
         // Requete BDD avec appel au repo"
-        $wishes = $wishRepository->findBy(["isPublished" => true], ['dateCreated' => 'DESC'], 20, 0);
+        $wishes = $wishRepository->findBy(["isPublished" => true], ['dateCreated' => 'DESC'], 30, 0);
 
         return $this->render('wish/list.html.twig', [
             "wishes" => $wishes,
