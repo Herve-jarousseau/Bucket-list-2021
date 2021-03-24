@@ -56,6 +56,9 @@
                         <a class="navbar-item" href="{{ path('wish_list') }}">
                             Nos souhaits
                         </a>
+                        <a class="navbar-item" href="{{ path('wish_idea') }}">
+                            Une idée
+                        </a>
                     </div>
                 </div>
             </nav>
@@ -63,7 +66,16 @@
     </header>
     <main>
         <div class="container">
+
+            {% for message in app.flashes('success') %}
+                <div class="notification is-success is-light">
+                    <button class="delete"></button>
+                    {{ message  }}
+                </div>
+            {% endfor %}
+
             {% block body %}{% endblock %}
+
         </div>
     </main>
     <footer class="footer mt-5">

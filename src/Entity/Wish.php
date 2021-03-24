@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\WishRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=WishRepository::class)
+ * @UniqueEntity("title", message="Ce titre est déjà utilisé.")
  */
 class Wish
 {
@@ -18,16 +21,36 @@ class Wish
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Le champ Titre est obligatoire.")
+     * @Assert\Length(
+     *     min=2,
+     *     max=250,
+     *     minMessage="Minimum 2 caractères s'il vous plait.",
+     *     maxMessage="Maximum 250 caractères s'il vous plait."
+     * )
      * @ORM\Column(type="string", length=250)
      */
     private $title;
 
     /**
+     * @Assert\Length(
+     *     min=2,
+     *     max=2000,
+     *     minMessage="Minimum 2 caractères s'il vous plait.",
+     *     maxMessage="Maximum 2 000 caractères s'il vous plait."
+     * )
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
+     * @Assert\NotBlank(message="Le champ Auteur est obligatoire.")
+     * @Assert\Length(
+     *     min=2,
+     *     max=50,
+     *     minMessage="Minimum 2 caractères s'il vous plait.",
+     *     maxMessage="Maximum 50 caractères s'il vous plait."
+     * )
      * @ORM\Column(type="string", length=50)
      */
     private $author;
