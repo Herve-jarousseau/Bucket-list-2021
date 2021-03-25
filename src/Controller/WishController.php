@@ -50,8 +50,6 @@ class WishController extends AbstractController
 
         // creation de notre objet Wish couplé fortement avec le formulaire
         $wish = new Wish();
-        $wish->setIsPublished(true);
-        $wish->setDateCreated(new \DateTime());
 
         // creation de notre formulaire
         $wishForm = $this->createForm(IdeaType::class, $wish);
@@ -63,11 +61,14 @@ class WishController extends AbstractController
         if ( $wishForm->isSubmitted() && $wishForm->isValid() ) {
             //dd($wish);
             // on enregistre l'objet Wish en BDD par l'EntityManager
+            $wish->setLikes(0);
+            $wish->setIsPublished(true);
+            $wish->setDateCreated(new \DateTime());
             $em->persist($wish);    // requete à la BDD
             $em->flush();           // validation transaction
 
             $this->addFlash('success', self::MSG_IDEA_SUCCESS);
-            // on redirige vers la page elle-même (rechargement)
+            // on redirige vers la page detail
             return $this->redirectToRoute('wish_detail', [
                 'id' => $wish->getId(),
             ]);

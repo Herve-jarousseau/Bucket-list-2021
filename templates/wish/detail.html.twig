@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ wish.title }}{% endblock %}
+{% block title %}{{  wish.title }} | {{ parent() }}{% endblock %}
 
 {% block body %}
     <h1 class="title is-5">Votre souhai'ket en détail !</h1>
@@ -21,6 +21,11 @@
             <td><span class="icon"><i class="fas fa-info-circle"></i></span></td>
             <th>Description</th>
             <td>{{ wish.description }}</td>
+        </tr>
+        <tr>
+            <td><span class="icon"><i class="fas fa-sitemap"></i></span></td>
+            <th>Catégorie</th>
+            <td>{{ wish.category.name }}</td>
         </tr>
         <tr>
             <td><span class="icon"><i class="far fa-calendar-check"></i></span></td>

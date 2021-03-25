@@ -5,3 +5,11 @@
 body, header, footer {
     font-family: 'Open Sans Condensed', sans-serif;
 }
+
+label, input, textarea, select {
+    display: block;
+}
+
+input, textarea, select {
+    width: 20em;
+}

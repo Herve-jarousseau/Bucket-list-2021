@@ -3,9 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Wish;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ResetType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,11 +15,20 @@ class IdeaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class)
-            ->add('description', TextareaType::class)
-            ->add('author', TextType::class)
-            ->add('Soumettre', SubmitType::class)
-            ->add('Annuler', ResetType::class)
+            ->add('title', TextType::class, [
+                "label" => "Souhait"
+            ])
+            ->add('description', TextareaType::class, [
+                "label" => "Description"
+            ])
+            ->add('author', TextType::class, [
+                "label" => "Pseudo"
+            ])
+            ->add('category', EntityType::class, [
+                'label' => "Categories",
+                'class' => "App\Entity\Category",
+                'choice_label' => "name"
+            ])
         ;
     }
 
