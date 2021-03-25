@@ -7,8 +7,31 @@
     <section>
         <h1 class="title is-5">Nos souhai'ket-Liste !</h1>
 
-        {% for wish in wishes %}
+        <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+            {% if currentPage > 1 %}
+            <a class="pagination-previous" href="{{ path('wish_list', {'page': currentPage-1}) }}">Précédent</a>
+            {% endif %}
+            {% if (currentPage * 20) < totalResultCount %}
+            <a class="pagination-next" href="{{ path('wish_list', {'page': currentPage+1}) }}"  >Suivant</a>
+            {% endif %}
+            <ul class="pagination-list">
+                {% if currentPage > 1 %}
+                <li><a class="pagination-link" aria-label="Goto page 1">{{ pageStart }}</a></li>
+                <li><span class="pagination-ellipsis">&hellip;</span></li>
+                <li><a class="pagination-link" aria-label="Goto page 45">{{ currentPage -1 }}</a></li>
+                {% endif %}
 
+                <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">{{ currentPage }}</a></li>
+
+                {% if currentPage < pageEnd %}
+                <li><a class="pagination-link" aria-label="Goto page 47">{{ currentPage +1 }}</a></li>
+                <li><span class="pagination-ellipsis">&hellip;</span></li>
+                <li><a class="pagination-link" aria-label="Goto page 86">{{ pageEnd }}</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        {% for wish in wishes %}
             <div class="card mt-4">
                 <div class="card-content">
                     <div class="media">
@@ -26,10 +49,17 @@
                         {{ wish.description }}
                         <br>
                         <time datetime="">{{ wish.dateCreated|date("d/m/y") }}</time>
+                        <br>
+                        <p class="mx-2 my-2">
+                            <span class="icon has-text-link"><i class="fas fa-thumbs-up mr-3"></i></span>
+                            {{ wish.likes }}
+                        </p>
+
                     </div>
                 </div>
             </div>
-
+        {% else %}
+            <div>Oups... Personne n'a d'idée...!</div>
         {% endfor %}
 
     </section>

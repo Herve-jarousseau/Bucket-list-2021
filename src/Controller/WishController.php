@@ -17,15 +17,21 @@ class WishController extends AbstractController
     private const MSG_IDEA_SUCCESS = "Votre idée a été enregistré avezc succès !";
 
     /**
-     * @Route("/wish", name="wish_list")
+     * @Route("/wish/{page}", name="wish_list", requirements={"page": "\d+"})
      */
-    public function list(WishRepository $wishRepository): Response
+    public function list(WishRepository $wishRepository, int $page = 1): Response
     {
         // Requete BDD avec appel au repo"
-        $wishes = $wishRepository->findBy(["isPublished" => true], ['dateCreated' => 'DESC'], 30, 0);
+        //$wishes = $wishRepository->findBy(["isPublished" => true], ['dateCreated' => 'DESC'], 30, 0);
+
+        $result = $wishRepository->findWishesListByPage($page);
 
         return $this->render('wish/list.html.twig', [
-            "wishes" => $wishes,
+            "wishes" => $result['result'],
+            "totalResultCount" => $result['totalResultCount'],
+            "currentPage" => $page,
+            "pageStart" => 1,
+            "pageEnd" => ceil($result['totalResultCount'] / 20),
         ]);
     }
 

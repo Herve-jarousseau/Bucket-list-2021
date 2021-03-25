@@ -20,7 +20,44 @@ class WishRepository extends ServiceEntityRepository
     }
 
 
+    public function findWishesListByPage(int $page = 1): ?array {
+        // requete pour obtenir les wishes
+        $queryBuilder = $this->createQueryBuilder('w');
+        $queryBuilder->andWhere('w.isPublished = true');
+        //$queryBuilder->andWhere('w.likes > :likesCount');
+        //$queryBuilder->setParameter(':likesCount', 5);
 
+        // requete pour obtenir le nombre de resultat
+        $queryBuilder->select("COUNT(w)");
+
+        // on execute la requete et recupere juste le chiffre :
+        $countQuery = $queryBuilder->getQuery();
+        $totalResultCount = $countQuery->getSingleScalarResult();
+
+        // on remodifie notre queryBuilder
+        $queryBuilder->select('w');
+
+        // l'offset
+        $offset = ($page - 1) * 20;
+        $queryBuilder->setFirstResult($offset);
+        //nombre max de resultat
+        $queryBuilder->setMaxResults(20);
+
+        // on tri
+        $queryBuilder->addOrderBy('w.dateCreated', 'DESC');
+
+        // on recupere l'objet Query de doctrine
+        $query = $queryBuilder->getQuery();
+
+        // on execute la requete et on recupere les resultats
+        $result = $query->getResult();
+
+        // Deux données sont à renvoyer
+        return [
+            "result" => $result,
+            "totalResultCount" => $totalResultCount,
+        ];
+    }
 
 
 
