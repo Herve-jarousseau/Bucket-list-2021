@@ -3,8 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\Reaction;
 use App\Entity\Wish;
-use App\Repository\CategoryRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -17,6 +17,7 @@ class AppFixtures extends Fixture
         $faker = \Faker\Factory::create("fr_FR");
         $Categories = ["Voyage & aventure", "Sport", "Divertissement", "Relations humaines", "Autres"];
 
+
         // Jeu de données Categories
         for ($i = 0; $i < count($Categories); $i++) {
             $Category = new Category();
@@ -25,11 +26,11 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
-        // les categories existante en BDD :
+        // les categories existantes en BDD :
         $allCategory = $manager->getRepository("App:Category")->findAll();
 
         // Jeu de données Wishes
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 60; $i++) {
             $wish = new Wish();
             $wish->setTitle($faker->sentence());
             $wish->setDescription($faker->realText());
@@ -41,6 +42,24 @@ class AppFixtures extends Fixture
             $manager->persist($wish);
         }
         $manager->flush();
+
+        // les wishes existantes en BDD :
+        $wishes = $manager->getRepository(Wish::class)->findAll();
+
+        // Jeu de données Reaction
+        foreach ($wishes as $w) {
+            for ($i = 0; $i < ($faker->numberBetween(0, 2)); $i++) {
+                $reaction = new Reaction();
+                $reaction->setMessage($faker->realText());
+                $reaction->setUsername($faker->userName);
+                $reaction->setDateCreated($faker->dateTimeBetween('-1 years'));
+                $reaction->setWish($w);
+                $manager->persist($reaction);
+            }
+        }
+        $manager->flush();
+
+
 
 
     }

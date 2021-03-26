@@ -3,7 +3,7 @@
 {% block title %}{{  wish.title }} | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1 class="title is-5">Votre souhai'ket en détail !</h1>
+    <h1 class="title is-5">Le souhai'ket en détail !</h1>
 
     <table class="table my-6">
         <tbody>
@@ -34,5 +34,20 @@
         </tr>
         </tbody>
     </table>
+
+
+
+
+
+    <div id="reactionForm">
+        {{ form_start(reactionForm) }}
+        {{ form_widget(reactionForm) }}
+        <button>Soumettre</button>
+        {{ form_end(reactionForm) }}
+    </div>
+
+
+
+
 
 {% endblock %}

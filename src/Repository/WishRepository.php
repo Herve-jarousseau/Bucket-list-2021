@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Wish;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -58,6 +59,27 @@ class WishRepository extends ServiceEntityRepository
             "totalResultCount" => $totalResultCount,
         ];
     }
+
+
+    public function findWishAndReactionsByWishId(int $id) {
+        $wishAndReactions = [];
+        // requete pour obtenir le wish
+        $queryBuilder = $this->createQueryBuilder('w');
+        $queryBuilder->andWhere('w.id = :id');
+        $queryBuilder->setParameter(':id', $id);
+        $queryBuilder->join('w.reactions', 'reactions');
+        $queryBuilder->addOrderBy('reactions.dateCreated', 'DESC');
+        $queryBuilder->addSelect('reactions');
+        $query = $queryBuilder-> getQuery();
+
+        $query->setMaxResults(10);
+
+//dd($query->getResult());
+        return $query->getResult();
+    }
+
+
+
 
 
 
