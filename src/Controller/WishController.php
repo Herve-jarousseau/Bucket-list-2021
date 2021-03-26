@@ -47,7 +47,7 @@ class WishController extends AbstractController
         try {
             $wish = $wishRepository->findWishAndReactionsByWishId($id);
         } catch ( \Exception $e ) {
-
+            // TODO Gestion de l'exception !!! retourner une 500
         }
 
         // creation de notre objet Reaction couplé fortement avec le formulaire

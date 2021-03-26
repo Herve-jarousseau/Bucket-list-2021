@@ -62,9 +62,13 @@ class WishRepository extends ServiceEntityRepository
         ];
     }
 
-
+    /**
+     * Requete qui retourne un objet Wish (Test requete avec jointure)
+     * @param int $id
+     * @return int|mixed|string
+     * @throws Exception
+     */
     public function findWishAndReactionsByWishId(int $id) {
-        dump($id);
         // requete pour obtenir le wish
         $queryBuilder = $this->createQueryBuilder('w');
         $queryBuilder->andWhere('w.id = :id');
@@ -79,7 +83,6 @@ class WishRepository extends ServiceEntityRepository
         } catch (NoResultException | NonUniqueResultException $e) {
             throw new Exception();
         }
-        dump($result);
         return $result;
     }
 
