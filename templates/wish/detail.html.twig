@@ -37,14 +37,44 @@
 
 
 
+    <div class="columns">
+        <div id="reactionForm" class="column is-one-third">
+            {{ form_start(reactionForm) }}
+            {{ form_widget(reactionForm) }}
+            <button>Soumettre</button>
+            {{ form_end(reactionForm) }}
+        </div>
+        <div class="column is-two-thirds">
 
+            {% for reaction in wish.reactions %}
+                <div class="card mt-4">
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-left">
+                                <figure class="image is-48x48">
+                                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <p class="subtitle is-6">@{{ reaction.username }}</p>
+                            </div>
+                        </div>
+                        <div class="content">
+                            {{ reaction.message }}
+                            <br>
+                            <time datetime="">{{ reaction.dateCreated|date("d/m/y") }}</time>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="notification is-info is-light">Oups... Personne n'a de commentaire...!</div>
+            {% endfor %}
 
-    <div id="reactionForm">
-        {{ form_start(reactionForm) }}
-        {{ form_widget(reactionForm) }}
-        <button>Soumettre</button>
-        {{ form_end(reactionForm) }}
+        </div>
     </div>
+
+
 
 
 

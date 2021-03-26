@@ -4,8 +4,10 @@ namespace App\Repository;
 
 use App\Entity\Wish;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * @method Wish|null find($id, $lockMode = null, $lockVersion = null)
@@ -62,20 +64,23 @@ class WishRepository extends ServiceEntityRepository
 
 
     public function findWishAndReactionsByWishId(int $id) {
-        $wishAndReactions = [];
+        dump($id);
         // requete pour obtenir le wish
         $queryBuilder = $this->createQueryBuilder('w');
         $queryBuilder->andWhere('w.id = :id');
         $queryBuilder->setParameter(':id', $id);
-        $queryBuilder->join('w.reactions', 'reactions');
+        $queryBuilder->leftJoin('w.reactions', 'reactions');
         $queryBuilder->addOrderBy('reactions.dateCreated', 'DESC');
         $queryBuilder->addSelect('reactions');
         $query = $queryBuilder-> getQuery();
-
         $query->setMaxResults(10);
-
-//dd($query->getResult());
-        return $query->getResult();
+        try {
+            $result = $query->getSingleResult();
+        } catch (NoResultException | NonUniqueResultException $e) {
+            throw new Exception();
+        }
+        dump($result);
+        return $result;
     }
 
 

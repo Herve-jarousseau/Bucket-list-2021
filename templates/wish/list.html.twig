@@ -16,17 +16,25 @@
             {% endif %}
             <ul class="pagination-list">
                 {% if currentPage > 1 %}
-                <li><a class="pagination-link" aria-label="Goto page 1">{{ pageStart }}</a></li>
+                <li>
+                    <a class="pagination-link" href="{{ path('wish_list',  {'page': pageStart}) }}" aria-label="Goto page 1">{{ pageStart }}</a>
+                </li>
                 <li><span class="pagination-ellipsis">&hellip;</span></li>
-                <li><a class="pagination-link" aria-label="Goto page 45">{{ currentPage -1 }}</a></li>
+                <li>
+                    <a class="pagination-link" href="{{ path('wish_list',  {'page': currentPage -1}) }}" aria-label="Goto page 45">{{ currentPage -1 }}</a>
+                </li>
                 {% endif %}
 
                 <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">{{ currentPage }}</a></li>
 
                 {% if currentPage < pageEnd %}
-                <li><a class="pagination-link" aria-label="Goto page 47">{{ currentPage +1 }}</a></li>
+                <li>
+                    <a class="pagination-link" href="{{ path('wish_list',  {'page': currentPage +1}) }}" aria-label="Goto page 47">{{ currentPage +1 }}</a>
+                </li>
                 <li><span class="pagination-ellipsis">&hellip;</span></li>
-                <li><a class="pagination-link" aria-label="Goto page 86">{{ pageEnd }}</a></li>
+                <li>
+                    <a class="pagination-link" href="{{ path('wish_list',  {'page': pageEnd}) }}" aria-label="Goto page 86">{{ pageEnd }}</a>
+                </li>
                 {% endif %}
             </ul>
         </nav>

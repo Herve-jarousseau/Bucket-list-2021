@@ -17,6 +17,7 @@ class WishController extends AbstractController
 {
 
     private const MSG_IDEA_SUCCESS = "Votre idée a été enregistré avezc succès !";
+    private const MSG_REACTION_SUCCESS = "Merci pour votre commentaire, quel qu'il soit ;) ";
 
     /**
      * @Route("/wish/{page}", name="wish_list", requirements={"page": "\d+"})
@@ -43,11 +44,11 @@ class WishController extends AbstractController
     public function detail(Request $request, $id, WishRepository $wishRepository, EntityManagerInterface $em): Response
     {
         // Requete BDD avec appel au repo"
-        //$wish = $wishRepository->find($id);
-        $result = $wishRepository->findWishAndReactionsByWishId($id);
+        try {
+            $wish = $wishRepository->findWishAndReactionsByWishId($id);
+        } catch ( \Exception $e ) {
 
-dd($result);
-
+        }
 
         // creation de notre objet Reaction couplé fortement avec le formulaire
         $reaction = new Reaction();
@@ -59,20 +60,18 @@ dd($result);
 
         // on traite la reception de la requete :
         if ( $reactionForm->isSubmitted() && $reactionForm->isValid() ) {
-            dd($reaction);
             // on enregistre l'objet Reaction en BDD par l'EntityManager
             $reaction->setDateCreated(new \DateTime());
             $reaction->setWish($wish);
             $em->persist($reaction);    // requete à la BDD
             $em->flush();               // validation transaction
 
-            $this->addFlash('success', self::MSG_IDEA_SUCCESS);
+            $this->addFlash('success', self::MSG_REACTION_SUCCESS);
             // on redirige vers la page detail
             return $this->redirectToRoute('wish_detail', [
                 'id' => $wish->getId(),
             ]);
         }
-
 
         return $this->render('wish/detail.html.twig', [
             'wish' => $wish,
