@@ -7,6 +7,7 @@ use App\Entity\Wish;
 use App\Form\IdeaType;
 use App\Form\ReactionType;
 use App\Repository\WishRepository;
+use App\Services\Censurator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,7 +42,7 @@ class WishController extends AbstractController
     /**
      * @Route("/wish/detail/{id}", name="wish_detail", requirements={"id"="\d+"})
      */
-    public function detail(Request $request, $id, WishRepository $wishRepository, EntityManagerInterface $em): Response
+    public function detail(Request $request, $id, WishRepository $wishRepository, EntityManagerInterface $em, Censurator $censurator): Response
     {
         // Requete BDD avec appel au repo"
         try {
@@ -63,6 +64,7 @@ class WishController extends AbstractController
         if ( $reactionForm->isSubmitted() && $reactionForm->isValid() ) {
             // on enregistre l'objet Reaction en BDD par l'EntityManager
             $reaction->setDateCreated(new \DateTime());
+            $reaction->setMessage($censurator->purify($reaction->getMessage()));
             $reaction->setWish($wish);
             $em->persist($reaction);    // requete à la BDD
             $em->flush();               // validation transaction
@@ -83,7 +85,7 @@ class WishController extends AbstractController
     /**
      * @Route("/wish/idea", name="wish_idea")
      */
-    public function idea(Request $request, EntityManagerInterface $em): Response
+    public function idea(Request $request, EntityManagerInterface $em, Censurator $censurator): Response
     {
 
         // creation de notre objet Wish couplé fortement avec le formulaire
@@ -101,6 +103,8 @@ class WishController extends AbstractController
             //dd($wish);
             // on enregistre l'objet Wish en BDD par l'EntityManager
             $wish->setLikes(0);
+            $wish->setTitle($censurator->purify($wish->getTitle()));
+            $wish->setDescription($censurator->purify($wish->getDescription()));
             $wish->setIsPublished(true);
             $wish->setDateCreated(new \DateTime());
             $em->persist($wish);    // requete à la BDD

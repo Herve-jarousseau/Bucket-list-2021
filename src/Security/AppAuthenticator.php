@@ -107,7 +107,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
             return new RedirectResponse($targetPath);
         }
         // message flash de bienvenue
-        $this->flashBag->add('success', "Bienvenue " . $this->getUser()->getPseudo() . " !");
+        $this->flashBag->add('success', "Bienvenue !");
 
         // Redirection à la page 'wish_list'
         return new RedirectResponse($this->urlGenerator->generate('wish_list'));
