@@ -89,17 +89,14 @@
     <main>
         <div class="container">
             <!-- Messages Flash -->
-            {% for message in app.flashes('success') %}
-                <div class="notification is-success is-light">
-                    <button class="delete"></button>
-                    {{ message  }}
-                </div>
-            {% endfor %}
-            {% for message in app.flashes('error') %}
-                <div class="notification is-warning is-light">
-                    <button class="delete"></button>
-                    {{ message  }}
-                </div>
+            {# pass an array argument to get the messages of those types  #}
+            {% for label, messages in app.flashes(['success', 'warning']) %}
+                {% for message in messages %}
+                    <div class="notification is-{{ label }} is-light">
+                        <button class="delete"></button>
+                        {{ message  }}
+                    </div>
+                {% endfor %}
             {% endfor %}
 
             {% block body %}{% endblock %}

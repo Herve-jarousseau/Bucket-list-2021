@@ -24,10 +24,8 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         if ($error) {
-            $this->addFlash('error', $error->getMessage());
+            $this->addFlash('warning', 'Mauvais identifiants !');
         }
-
-
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
