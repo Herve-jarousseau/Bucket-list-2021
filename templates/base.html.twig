@@ -56,9 +56,11 @@
                         <a class="navbar-item" href="{{ path('wish_list') }}">
                             Nos souhaits
                         </a>
-                        <a class="navbar-item" href="{{ path('wish_idea') }}">
-                            Ajouter une idée
-                        </a>
+                        {% if app.user %}
+                            <a class="navbar-item" href="{{ path('wish_idea') }}">
+                                Ajouter une idée
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
 
@@ -67,16 +69,16 @@
                         <div class="buttons">
 
                             {% if not app.user %}
-                            <a class="button is-primary" href="{{ path('app_register') }}">
-                                <strong>Inscription</strong>
-                            </a>
-                            <a class="button is-light" href="{{ path('app_login') }}">
-                                Connexion
-                            </a>
-                            {% else %}
-                            <a class="button is-light" href="{{ path('app_logout') }}">
-                                Déconnexion
-                            </a>
+                                <a class="button is-primary" href="{{ path('app_register') }}">
+                                    <strong>Inscription</strong>
+                                </a>
+                                <a class="button is-light" href="{{ path('app_login') }}">
+                                    Connexion
+                                </a>
+                                {% else %}
+                                <a class="button is-light" href="{{ path('app_logout') }}">
+                                    Déconnexion
+                                </a>
                             {% endif %}
 
                         </div>

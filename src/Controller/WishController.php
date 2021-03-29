@@ -52,6 +52,7 @@ class WishController extends AbstractController
 
         // creation de notre objet Reaction couplé fortement avec le formulaire
         $reaction = new Reaction();
+        $reaction->setUsername($this->getUser()->getPseudo());
         // creation de notre formulaire
         $reactionForm = $this->createForm(ReactionType::class, $reaction);
 
@@ -87,6 +88,7 @@ class WishController extends AbstractController
 
         // creation de notre objet Wish couplé fortement avec le formulaire
         $wish = new Wish();
+        $wish->setAuthor($this->getUser()->getPseudo());
 
         // creation de notre formulaire
         $wishForm = $this->createForm(IdeaType::class, $wish);

@@ -9,11 +9,7 @@
     {{ form_start(wishForm) }}
     {{ form_row(wishForm.title) }}
     {{ form_row(wishForm.description) }}
-    {% if app.user %}
-        {{ form_row(wishForm.author, {'attr': {'value': app.user.pseudo }}) }}
-    {% else %}
-        {{ form_row(wishForm.author) }}
-    {% endif %}
+    {{ form_row(wishForm.author) }}
     {{ form_row(wishForm.category) }}
     <button>Soumettre</button>
     {{ form_end(wishForm) }}

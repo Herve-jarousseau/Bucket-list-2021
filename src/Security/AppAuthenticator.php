@@ -34,7 +34,6 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
     private $passwordEncoder;
     // Attribut rajouté (HJ)
     private $flashBag;
-    private $user;
 
     public function __construct(EntityManagerInterface $entityManager,
                                 UrlGeneratorInterface $urlGenerator,
@@ -84,8 +83,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
             throw new CustomUserMessageAuthenticationException('Email could not be found.');
         }
 
-        // on rajoute le user trouvé dans un attribut de classe (HJ)
-        $this->user = $user;
+
 
         return $user;
     }
@@ -109,7 +107,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
             return new RedirectResponse($targetPath);
         }
         // message flash de bienvenue
-        $this->flashBag->add('success', "Bienvenue " . $this->user->getPseudo() . " !");
+        $this->flashBag->add('success', "Bienvenue " . $this->getUser()->getPseudo() . " !");
 
         // Redirection à la page 'wish_list'
         return new RedirectResponse($this->urlGenerator->generate('wish_list'));

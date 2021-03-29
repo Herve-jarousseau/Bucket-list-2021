@@ -40,11 +40,7 @@
     <div class="columns">
         <div id="reactionForm" class="column is-one-third">
             {{ form_start(reactionForm) }}
-            {% if app.user %}
-                {{ form_row(reactionForm.username, {'attr': {'value': app.user.pseudo }}) }}
-            {% else %}
-                {{ form_row(reactionForm.username) }}
-            {% endif %}
+            {{ form_row(reactionForm.username) }}
             {{ form_row(reactionForm.message) }}
             <button>Soumettre</button>
             {{ form_end(reactionForm) }}
@@ -78,11 +74,5 @@
 
         </div>
     </div>
-
-
-
-
-
-
 
 {% endblock %}

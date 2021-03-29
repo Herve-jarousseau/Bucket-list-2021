@@ -22,7 +22,7 @@ class SecurityController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-
+// non conseillé !!!
         if ($error) {
             $this->addFlash('warning', 'Mauvais identifiants !');
         }
