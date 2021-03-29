@@ -57,10 +57,32 @@
                             Nos souhaits
                         </a>
                         <a class="navbar-item" href="{{ path('wish_idea') }}">
-                            Une idée
+                            Ajouter une idée
                         </a>
                     </div>
                 </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+
+                            {% if not app.user %}
+                            <a class="button is-primary" href="{{ path('app_register') }}">
+                                <strong>Inscription</strong>
+                            </a>
+                            <a class="button is-light" href="{{ path('app_login') }}">
+                                Connexion
+                            </a>
+                            {% else %}
+                            <a class="button is-light" href="{{ path('app_logout') }}">
+                                Déconnexion
+                            </a>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+
             </nav>
         </div>
     </header>
@@ -69,6 +91,12 @@
             <!-- Messages Flash -->
             {% for message in app.flashes('success') %}
                 <div class="notification is-success is-light">
+                    <button class="delete"></button>
+                    {{ message  }}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('error') %}
+                <div class="notification is-warning is-light">
                     <button class="delete"></button>
                     {{ message  }}
                 </div>

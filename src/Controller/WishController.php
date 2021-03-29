@@ -47,7 +47,7 @@ class WishController extends AbstractController
         try {
             $wish = $wishRepository->findWishAndReactionsByWishId($id);
         } catch ( \Exception $e ) {
-            // TODO Gestion de l'exception !!! retourner une 500
+            // TODO "C'était un test de jointure et d'exception"
         }
 
         // creation de notre objet Reaction couplé fortement avec le formulaire
@@ -113,7 +113,7 @@ class WishController extends AbstractController
 
 
         return $this->render('wish/idea.html.twig', [
-            "wishForm" => $wishForm ->createView(),
+            "wishForm" => $wishForm ->createView()
         ]);
     }
 
